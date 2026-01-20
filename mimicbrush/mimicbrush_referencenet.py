@@ -55,7 +55,8 @@ class MimicBrush_RefNet:
         print('=== load depth_guider ===')
         self.referencenet.load_state_dict(state_dict["referencenet"])
         print('=== load referencenet ===')
-        self.image_encoder.load_state_dict(state_dict["image_encoder"])
+        # Use strict=False to handle position_ids mismatch between transformers versions
+        self.image_encoder.load_state_dict(state_dict["image_encoder"], strict=False)
         print('=== load image_encoder ===')
         if "unet" in state_dict.keys():
             self.pipe.unet.load_state_dict(state_dict["unet"])
